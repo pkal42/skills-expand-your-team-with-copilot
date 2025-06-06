@@ -1,0 +1,176 @@
+name: 🎨 UI/Design Change Request
+description: Request changes to the user interface, styling, or visual elements
+title: "UI Change: [BRIEF DESCRIPTION]"
+labels: [enhancement, ui, design]
+assignees: ["@copilot"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Request changes to the user interface, styling, colors, layout, or visual elements. Please be specific about what you want changed and how it should look.
+
+  - type: dropdown
+    id: change_type
+    attributes:
+      label: Type of UI Change
+      description: What kind of UI change are you requesting?
+      options:
+        - Color scheme/theme changes
+        - Layout modifications
+        - Font changes
+        - Button styling
+        - Activity card design
+        - Header/navigation changes
+        - Modal/popup styling
+        - Responsive design improvements
+        - Accessibility improvements
+        - Other visual enhancement
+    validations:
+      required: true
+
+  - type: dropdown
+    id: affected_area
+    attributes:
+      label: Which part of the application?
+      description: Where should the changes be applied?
+      options:
+        - Main page header
+        - Activity cards/listings
+        - Search and filter sidebar
+        - Registration modal
+        - Login modal
+        - Overall page layout
+        - Footer
+        - Buttons and forms
+        - Entire application
+    validations:
+      required: true
+
+  - type: textarea
+    id: current_behavior
+    attributes:
+      label: Current Appearance/Behavior
+      description: Describe what the current UI looks like or how it currently behaves
+      placeholder: e.g., The activity cards currently have a gray background with small text
+    validations:
+      required: true
+
+  - type: textarea
+    id: desired_behavior
+    attributes:
+      label: Desired Appearance/Behavior
+      description: Describe exactly how you want it to look or behave
+      placeholder: e.g., I want the activity cards to have a light blue background with larger, more readable text
+    validations:
+      required: true
+
+  - type: textarea
+    id: specific_requirements
+    attributes:
+      label: Specific Requirements
+      description: List any specific colors, sizes, fonts, or other design specifications
+      placeholder: |
+        - Background color: #e3f2fd (light blue)
+        - Text size: 16px instead of 14px
+        - Add subtle shadow for depth
+        - Round corners more (8px border radius)
+
+  - type: checkboxes
+    id: design_goals
+    attributes:
+      label: Design Goals
+      description: What are you trying to achieve with this change?
+      options:
+        - label: Improve readability
+        - label: Make it more visually appealing
+        - label: Better accessibility
+        - label: Clearer information hierarchy
+        - label: More modern appearance
+        - label: Better mobile responsiveness
+        - label: Align with school branding
+        - label: Reduce visual clutter
+
+  - type: textarea
+    id: color_preferences
+    attributes:
+      label: Color Preferences (if applicable)
+      description: Specify any color preferences, hex codes, or school colors
+      placeholder: |
+        - Primary color: #1976d2 (blue)
+        - Secondary color: #ff9800 (orange)
+        - Use Mergington High School colors
+
+  - type: checkboxes
+    id: browser_compatibility
+    attributes:
+      label: Browser/Device Compatibility
+      description: Where should this work properly?
+      options:
+        - label: Desktop browsers (Chrome, Firefox, Safari, Edge)
+        - label: Mobile browsers (responsive design)
+        - label: Tablet browsers
+        - label: All screen sizes
+
+  - type: checkboxes
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Confirm the following requirements (all must be checked)
+      options:
+        - label: Changes are visually consistent across the application
+          required: true
+        - label: All functionality remains working after changes
+          required: true
+        - label: Design is responsive and works on mobile devices
+          required: true
+        - label: Text remains readable and accessible
+          required: true
+        - label: Changes don't break existing layout or functionality
+          required: true
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: Any other design considerations or requirements
+      placeholder: e.g., Must work with existing accessibility features, should match school branding guidelines, etc.
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Implementation Hints for Copilot
+
+        **CSS Location**: Styles are located in `src/static/styles.css`
+
+        **Key CSS Classes/Areas**:
+        - `.activity-card`: Individual activity cards
+        - `.activity-tag`: Activity type tags
+        - `.sidebar-filters`: Search and filter sidebar
+        - `.modal`: Registration and login modals
+        - `header`: Main page header
+        - `.register-button`: Action buttons
+        - CSS variables for colors are defined at the top of the file
+
+        **Responsive Design**: 
+        - Check existing media queries for mobile compatibility
+        - Ensure changes work across different screen sizes
+        - Test on both desktop and mobile layouts
+
+        **Color System**:
+        - Use CSS custom properties (variables) for consistent colors
+        - Primary colors: `--primary`, `--primary-light`
+        - Text colors: `--text-primary`, `--text-secondary`
+        - Background colors: `--background`, `--surface`
+
+        **Testing Checklist**:
+        - Verify changes appear correctly on desktop and mobile
+        - Ensure all text remains readable
+        - Check that functionality still works (buttons, forms, etc.)
+        - Validate accessibility (contrast ratios, focus states)
+
+        **Constraints**:
+        - Don't break existing functionality
+        - Maintain responsive design
+        - Keep accessibility standards
+        - Preserve existing CSS structure where possible

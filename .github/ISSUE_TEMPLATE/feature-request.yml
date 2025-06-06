@@ -1,0 +1,202 @@
+name: ✨ Feature Request
+description: Suggest a new feature or enhancement for the application
+title: "Feature: [BRIEF DESCRIPTION]"
+labels: [enhancement, feature-request]
+assignees: ["@copilot"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea for a new feature? Help us understand what you need and how it should work!
+
+  - type: textarea
+    id: feature_summary
+    attributes:
+      label: Feature Summary
+      description: Briefly describe the feature you'd like to see
+      placeholder: e.g., Add ability to export participant lists to CSV file
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem_statement
+    attributes:
+      label: Problem Statement
+      description: What problem does this feature solve? What need does it address?
+      placeholder: e.g., Teachers need to generate attendance lists for activities but currently have to manually copy participant information
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: Proposed Solution
+      description: Describe how you envision this feature working
+      placeholder: |
+        e.g., Add an "Export List" button next to each activity that downloads a CSV file containing:
+        - Student names
+        - Student emails
+        - Registration date
+        - Activity details
+    validations:
+      required: true
+
+  - type: dropdown
+    id: feature_category
+    attributes:
+      label: Feature Category
+      description: What type of feature is this?
+      options:
+        - Activity management
+        - Student registration
+        - Teacher tools
+        - Reporting/Export
+        - Communication/Notifications
+        - Search and filtering
+        - User interface improvement
+        - Data management
+        - Integration with other systems
+        - Accessibility improvement
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: user_types
+    attributes:
+      label: Who would use this feature?
+      description: Select all user types that would benefit
+      options:
+        - label: Teachers
+        - label: Students
+        - label: School administrators
+        - label: Parents (if applicable)
+        - label: All users
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority Level
+      description: How important is this feature?
+      options:
+        - High - Essential for daily operations
+        - Medium - Would significantly improve workflow
+        - Low - Nice to have enhancement
+    validations:
+      required: true
+
+  - type: textarea
+    id: detailed_requirements
+    attributes:
+      label: Detailed Requirements
+      description: List specific requirements and behaviors for this feature
+      placeholder: |
+        1. Export button should appear only for logged-in teachers
+        2. CSV should include headers: Name, Email, Registration Date, Activity
+        3. File name should be formatted as "ActivityName_Participants_YYYY-MM-DD.csv"
+        4. Show success message after download
+        5. Handle empty participant lists gracefully
+
+  - type: textarea
+    id: user_workflow
+    attributes:
+      label: User Workflow
+      description: Describe step-by-step how a user would interact with this feature
+      placeholder: |
+        1. Teacher logs into the system
+        2. Teacher views the main activities page
+        3. Teacher sees "Export List" button next to each activity
+        4. Teacher clicks "Export List" for Chess Club
+        5. Browser downloads "ChessClub_Participants_2023-12-01.csv"
+        6. Teacher opens file to see participant information
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      description: List specific, testable criteria that define when this feature is complete
+      placeholder: |
+        - [ ] Export button is visible only to authenticated teachers
+        - [ ] CSV file contains all required participant information
+        - [ ] File downloads successfully in all supported browsers
+        - [ ] Empty activities show appropriate message instead of empty file
+        - [ ] Feature works on both desktop and mobile devices
+    validations:
+      required: true
+
+  - type: textarea
+    id: edge_cases
+    attributes:
+      label: Edge Cases and Considerations
+      description: What special situations or edge cases should be handled?
+      placeholder: |
+        - What happens if an activity has no participants?
+        - Should there be a limit on file size for large participant lists?
+        - How should special characters in names be handled?
+        - What if the user's browser blocks downloads?
+
+  - type: textarea
+    id: mockups_wireframes
+    attributes:
+      label: Mockups or Wireframes (Optional)
+      description: Describe or link to any visual mockups, sketches, or examples
+      placeholder: |
+        - Button should appear next to the "Register" button
+        - Use a download icon (⬇️) with "Export List" text
+        - Button should be styled consistently with other action buttons
+
+  - type: checkboxes
+    id: implementation_considerations
+    attributes:
+      label: Implementation Considerations
+      description: Are there any technical considerations to keep in mind?
+      options:
+        - label: Should integrate with existing authentication system
+        - label: Needs to work with current database structure
+        - label: Should follow existing UI/design patterns
+        - label: Must be accessible (screen readers, keyboard navigation)
+        - label: Should work offline or with poor connectivity
+        - label: Needs to handle large amounts of data efficiently
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: Any other information that would be helpful
+      placeholder: |
+        - Similar features in other applications
+        - Specific use cases or scenarios
+        - Timing requirements or deadlines
+        - Integration with existing workflows
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Implementation Hints for Copilot
+
+        **Key Files to Consider**:
+        - `src/static/app.js`: Frontend functionality and user interactions
+        - `src/backend/routers/activities.py`: API endpoints for activity data
+        - `src/static/index.html`: UI elements and structure
+        - `src/static/styles.css`: Styling for new elements
+        - `src/backend/database.py`: Data access if database changes needed
+
+        **Common Implementation Patterns**:
+        - **New UI Elements**: Add to HTML, style with CSS, add event handlers in JavaScript
+        - **New API Endpoints**: Add routes to appropriate router file, handle authentication
+        - **Data Export**: Use JavaScript Blob API or server-side file generation
+        - **Authentication**: Check `currentUser` state in frontend, verify teacher credentials in backend
+
+        **Testing Approach**:
+        1. Test with different user types (teacher vs student)
+        2. Test with various data scenarios (empty lists, large lists, special characters)
+        3. Test across different browsers and devices
+        4. Verify accessibility with keyboard navigation and screen readers
+        5. Test error handling and edge cases
+
+        **Code Quality Guidelines**:
+        - Follow existing code style and patterns
+        - Add appropriate error handling
+        - Include user feedback (loading states, success/error messages)
+        - Maintain responsive design principles
+        - Ensure feature works without breaking existing functionality

@@ -1,0 +1,179 @@
+name: ✏️ Modify Existing Activity
+description: Request changes to an existing activity's details
+title: "Modify Activity: [ACTIVITY NAME]"
+labels: [enhancement, activity, modification]
+assignees: ["@copilot"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Request changes to an existing activity. Please provide specific details about what needs to be changed so our Copilot coding agent can implement the modifications accurately.
+
+  - type: dropdown
+    id: existing_activity
+    attributes:
+      label: Existing Activity Name
+      description: Select the activity you want to modify (or type if not listed)
+      options:
+        - Chess Club
+        - Programming Club
+        - Art Workshop
+        - Math Olympiad
+        - Debate Team
+        - Weekend Robotics Workshop
+        - Drama Club
+        - Science Lab
+        - Community Service Club
+        - Other (specify in description)
+    validations:
+      required: true
+
+  - type: input
+    id: other_activity_name
+    attributes:
+      label: Other Activity Name
+      description: If you selected "Other" above, specify the activity name
+      placeholder: e.g., Basketball Team
+
+  - type: checkboxes
+    id: changes_requested
+    attributes:
+      label: What needs to be changed?
+      description: Select all that apply
+      options:
+        - label: Activity name
+        - label: Description
+        - label: Schedule (days/times)
+        - label: Maximum participants
+        - label: Current participants list
+
+  - type: textarea
+    id: new_name
+    attributes:
+      label: New Activity Name (if changing name)
+      description: Provide the new name for the activity
+      placeholder: e.g., Advanced Chess Club
+
+  - type: textarea
+    id: new_description
+    attributes:
+      label: New Description (if changing description)
+      description: Provide the updated description
+      placeholder: e.g., Advanced chess strategies for tournament preparation
+
+  - type: checkboxes
+    id: new_schedule_days
+    attributes:
+      label: New Schedule - Days (if changing schedule)
+      description: Select new days when this activity will meet
+      options:
+        - label: Monday
+        - label: Tuesday
+        - label: Wednesday
+        - label: Thursday
+        - label: Friday
+        - label: Saturday
+        - label: Sunday
+
+  - type: input
+    id: new_start_time
+    attributes:
+      label: New Start Time (if changing schedule)
+      description: New start time in 24-hour format
+      placeholder: e.g., 15:30 for 3:30 PM
+
+  - type: input
+    id: new_end_time
+    attributes:
+      label: New End Time (if changing schedule)
+      description: New end time in 24-hour format
+      placeholder: e.g., 17:00 for 5:00 PM
+
+  - type: input
+    id: new_max_participants
+    attributes:
+      label: New Maximum Participants (if changing capacity)
+      description: New maximum number of students
+      placeholder: e.g., 25
+
+  - type: textarea
+    id: participants_to_add
+    attributes:
+      label: Participants to Add (if managing participants)
+      description: Student emails to add (one per line)
+      placeholder: |
+        newstudent1@mergington.edu
+        newstudent2@mergington.edu
+
+  - type: textarea
+    id: participants_to_remove
+    attributes:
+      label: Participants to Remove (if managing participants)
+      description: Student emails to remove (one per line)
+      placeholder: |
+        student1@mergington.edu
+        student2@mergington.edu
+
+  - type: textarea
+    id: reason_for_change
+    attributes:
+      label: Reason for Change
+      description: Explain why this change is needed
+      placeholder: e.g., Room availability changed, increased student interest, schedule conflict resolution
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Confirm the following requirements (all must be checked)
+      options:
+        - label: Modified activity displays updated information correctly
+          required: true
+        - label: Existing participant registrations are preserved (unless explicitly removed)
+          required: true
+        - label: Schedule changes are reflected in both display formats
+          required: true
+        - label: Capacity changes are enforced properly
+          required: true
+        - label: No other activities are affected by the changes
+          required: true
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: Any other relevant information
+      placeholder: e.g., Dependencies, special considerations, timing requirements
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Implementation Hints for Copilot
+
+        **Database Location**: Activity data is stored in `src/backend/database.py` in the `initial_activities` dictionary.
+
+        **Modification Process**:
+        1. Locate the existing activity in the `initial_activities` dictionary
+        2. Update only the specified fields while preserving others
+        3. Ensure data format consistency (schedule_details structure, etc.)
+        4. If changing activity name, update the dictionary key as well
+
+        **Data Format Requirements**:
+        - `schedule_details`: Must contain `days` (array), `start_time`, `end_time`
+        - `participants`: Array of email strings
+        - `max_participants`: Integer value
+        - Times in HH:MM format (24-hour)
+
+        **Testing Checklist**:
+        - Verify changes appear correctly on main page
+        - Test registration functionality still works
+        - Confirm capacity limits are enforced
+        - Check that schedule display is correct in both formats
+
+        **Caution**: 
+        - Preserve existing participant data unless explicitly requested to change
+        - Maintain data integrity and format consistency
+        - Consider impact on existing registrations when changing capacity
