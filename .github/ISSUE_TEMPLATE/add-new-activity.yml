@@ -1,0 +1,126 @@
+name: 🎯 Add New Activity
+description: Request to add a new extracurricular activity to the system
+title: "Add New Activity: [ACTIVITY NAME]"
+labels: [enhancement, activity]
+assignees: ["@copilot"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for requesting a new activity! Please provide all the required information below so our Copilot coding agent can implement this change without needing additional clarification.
+
+  - type: input
+    id: activity_name
+    attributes:
+      label: Activity Name
+      description: What is the name of the new activity?
+      placeholder: e.g., Drama Club, Science Olympiad, Basketball Team
+    validations:
+      required: true
+
+  - type: textarea
+    id: activity_description
+    attributes:
+      label: Activity Description
+      description: Provide a detailed description of what this activity involves
+      placeholder: e.g., Learn acting techniques, perform in school plays, and develop public speaking skills
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: schedule_days
+    attributes:
+      label: Schedule - Days of the Week
+      description: Select all days when this activity will meet
+      options:
+        - label: Monday
+        - label: Tuesday
+        - label: Wednesday
+        - label: Thursday
+        - label: Friday
+        - label: Saturday
+        - label: Sunday
+
+  - type: input
+    id: start_time
+    attributes:
+      label: Start Time
+      description: What time does the activity start? (Use 24-hour format)
+      placeholder: e.g., 15:30 for 3:30 PM, 07:15 for 7:15 AM
+    validations:
+      required: true
+
+  - type: input
+    id: end_time
+    attributes:
+      label: End Time
+      description: What time does the activity end? (Use 24-hour format)
+      placeholder: e.g., 17:00 for 5:00 PM, 08:00 for 8:00 AM
+    validations:
+      required: true
+
+  - type: input
+    id: max_participants
+    attributes:
+      label: Maximum Participants
+      description: What is the maximum number of students that can participate?
+      placeholder: e.g., 20
+    validations:
+      required: true
+
+  - type: textarea
+    id: initial_participants
+    attributes:
+      label: Initial Participants (Optional)
+      description: List any students already signed up (one email per line)
+      placeholder: |
+        student1@mergington.edu
+        student2@mergington.edu
+
+  - type: checkboxes
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Confirm the following requirements (all must be checked)
+      options:
+        - label: Activity appears in the activities list on the main page
+          required: true
+        - label: Activity shows correct schedule, description, and capacity information
+          required: true
+        - label: Students can register for the activity when authenticated
+          required: true
+        - label: Teachers can see participant list and manage registrations
+          required: true
+        - label: Activity respects maximum participant limit
+          required: true
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: Any other information that might be helpful for implementation
+      placeholder: e.g., Special requirements, equipment needed, room preferences, etc.
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Implementation Hints for Copilot
+
+        **Database Location**: Activity data is stored in `src/backend/database.py` in the `initial_activities` dictionary.
+
+        **File Structure**:
+        - Add new activity entry to `initial_activities` dictionary
+        - Follow existing format with required fields: `description`, `schedule`, `schedule_details`, `max_participants`, `participants`
+        - The `schedule_details` object should contain `days` (array), `start_time`, and `end_time`
+
+        **Testing**: After implementation, verify:
+        - Activity appears on main page
+        - Schedule displays correctly in both 12-hour and 24-hour formats
+        - Registration and capacity tracking works properly
+
+        **Constraints**:
+        - Activity names must be unique
+        - Times must be in HH:MM format (24-hour)
+        - Days must match existing format: ["Monday", "Tuesday", etc.]
+        - Participant emails should follow @mergington.edu format

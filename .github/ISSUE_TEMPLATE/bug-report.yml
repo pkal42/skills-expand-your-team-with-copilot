@@ -1,0 +1,185 @@
+name: 🐛 Bug Report
+description: Report a problem or error in the application
+title: "Bug: [BRIEF DESCRIPTION]"
+labels: [bug, needs-investigation]
+assignees: ["@copilot"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Found a bug? Help us fix it by providing detailed information about the problem.
+
+  - type: textarea
+    id: bug_description
+    attributes:
+      label: Bug Description
+      description: Clearly describe what the bug is
+      placeholder: e.g., Students cannot register for activities, error message appears when clicking Register button
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: List the exact steps to reproduce the bug
+      placeholder: |
+        1. Go to the main page
+        2. Click on 'Chess Club' activity
+        3. Click 'Register' button
+        4. Fill in student email
+        5. Click 'Register' button
+        6. Error occurs
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected Behavior
+      description: What should happen instead?
+      placeholder: e.g., Student should be successfully registered for the activity and see a confirmation message
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happens?
+      placeholder: e.g., Error message appears saying "Authentication required" even when logged in as a teacher
+    validations:
+      required: true
+
+  - type: textarea
+    id: error_messages
+    attributes:
+      label: Error Messages
+      description: Copy any error messages you see (including browser console errors)
+      placeholder: |
+        Error message on page: "Authentication required for this action"
+        Console error: "Failed to fetch"
+
+  - type: checkboxes
+    id: affected_areas
+    attributes:
+      label: Affected Areas
+      description: Which parts of the application are affected?
+      options:
+        - label: Student registration
+        - label: Teacher login
+        - label: Activity display
+        - label: Search/filtering
+        - label: Mobile view
+        - label: Database operations
+        - label: API endpoints
+        - label: User interface
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity Level
+      description: How severe is this bug?
+      options:
+        - Critical - Application unusable
+        - High - Major functionality broken
+        - Medium - Some functionality impacted
+        - Low - Minor issue or cosmetic problem
+    validations:
+      required: true
+
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: How often does this occur?
+      description: How frequently can you reproduce this bug?
+      options:
+        - Always (100% of the time)
+        - Often (more than 50% of the time)
+        - Sometimes (less than 50% of the time)
+        - Rarely (hard to reproduce)
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: browser_environment
+    attributes:
+      label: Browser/Environment
+      description: Where did you encounter this bug?
+      options:
+        - label: Chrome (desktop)
+        - label: Firefox (desktop)
+        - label: Safari (desktop)
+        - label: Edge (desktop)
+        - label: Chrome (mobile)
+        - label: Safari (mobile)
+        - label: Other mobile browser
+
+  - type: textarea
+    id: user_account
+    attributes:
+      label: User Account Information
+      description: What type of user account were you using?
+      placeholder: |
+        - Teacher account: mrodriguez / Ms. Rodriguez
+        - Student registration attempt
+        - No account (guest browsing)
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: Any other information that might help fix this bug
+      placeholder: |
+        - When did this start happening?
+        - Does it happen for all users or specific ones?
+        - Any recent changes that might be related?
+
+  - type: checkboxes
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria for Fix
+      description: How will we know this bug is fixed? (check all that apply)
+      options:
+        - label: Steps to reproduce no longer cause the error
+          required: true
+        - label: Expected behavior occurs consistently
+          required: true
+        - label: No error messages appear in browser console
+          required: true
+        - label: Fix doesn't break other functionality
+          required: true
+        - label: Works across different browsers/devices
+          required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Investigation Hints for Copilot
+
+        **Common Bug Areas**:
+        - **Authentication**: Check `src/backend/routers/auth.py` and login flow in `src/static/app.js`
+        - **Activity Registration**: Check `src/backend/routers/activities.py` endpoints and frontend API calls
+        - **Database Issues**: Check `src/backend/database.py` for data consistency
+        - **UI Issues**: Check `src/static/app.js` for JavaScript errors and `src/static/styles.css` for styling
+
+        **Debugging Steps**:
+        1. Reproduce the bug following the provided steps
+        2. Check browser console for JavaScript errors
+        3. Verify API endpoints are working correctly (test at `/docs`)
+        4. Check database state and data consistency
+        5. Test fix across different browsers and user scenarios
+
+        **Key Files to Check**:
+        - `src/static/app.js`: Frontend logic and API calls
+        - `src/backend/routers/activities.py`: Activity management endpoints
+        - `src/backend/routers/auth.py`: Authentication logic
+        - `src/backend/database.py`: Data storage and retrieval
+        - `src/static/index.html`: DOM structure and elements
+
+        **Testing Verification**:
+        - Test the fix with the exact steps provided
+        - Verify no regression in other areas
+        - Check both teacher and student user flows
+        - Test on multiple browsers if UI-related

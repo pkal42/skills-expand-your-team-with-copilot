@@ -1,0 +1,181 @@
+name: 🗑️ Remove Activity
+description: Request to remove an existing activity from the system
+title: "Remove Activity: [ACTIVITY NAME]"
+labels: [enhancement, activity, removal]
+assignees: ["@copilot"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Request removal of an existing activity. Please provide details about why the activity should be removed and what should happen to existing registrations.
+
+  - type: dropdown
+    id: activity_to_remove
+    attributes:
+      label: Activity to Remove
+      description: Select the activity you want to remove
+      options:
+        - Chess Club
+        - Programming Club
+        - Art Workshop
+        - Math Olympiad
+        - Debate Team
+        - Weekend Robotics Workshop
+        - Drama Club
+        - Science Lab
+        - Community Service Club
+        - Other (specify below)
+    validations:
+      required: true
+
+  - type: input
+    id: other_activity_name
+    attributes:
+      label: Other Activity Name
+      description: If you selected "Other" above, specify the activity name
+      placeholder: e.g., Basketball Team
+
+  - type: textarea
+    id: removal_reason
+    attributes:
+      label: Reason for Removal
+      description: Why does this activity need to be removed?
+      placeholder: |
+        e.g., 
+        - Activity is no longer offered this semester
+        - Insufficient student interest
+        - Teacher/supervisor no longer available
+        - Room/resource constraints
+        - Program restructuring
+    validations:
+      required: true
+
+  - type: dropdown
+    id: participant_handling
+    attributes:
+      label: Current Participants
+      description: What should happen to students currently registered for this activity?
+      options:
+        - Remove all registrations (activity is cancelled)
+        - Transfer participants to another similar activity
+        - Keep participant data for records but mark activity inactive
+        - Contact participants individually about alternatives
+    validations:
+      required: true
+
+  - type: input
+    id: transfer_activity
+    attributes:
+      label: Transfer Target Activity
+      description: If transferring participants, which activity should they be moved to?
+      placeholder: e.g., Advanced Chess Club
+
+  - type: checkboxes
+    id: removal_scope
+    attributes:
+      label: Removal Scope
+      description: What should be removed? (check all that apply)
+      options:
+        - label: Remove from activities listing
+        - label: Remove participant registrations
+        - label: Remove from database completely
+        - label: Archive for historical records
+        - label: Prevent new registrations only (keep existing)
+
+  - type: dropdown
+    id: timing
+    attributes:
+      label: When should this take effect?
+      description: When should the activity be removed?
+      options:
+        - Immediately
+        - End of current week
+        - End of current month
+        - End of semester
+        - Specific date (specify in additional context)
+    validations:
+      required: true
+
+  - type: textarea
+    id: notification_plan
+    attributes:
+      label: Student Notification Plan
+      description: How should affected students be notified about this change?
+      placeholder: |
+        e.g.,
+        - Send email notification to all registered students
+        - Post announcement on school website
+        - Inform teachers to announce in classes
+        - Contact parents if needed
+
+  - type: checkboxes
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Confirm the following requirements (all must be checked)
+      options:
+        - label: Activity no longer appears in the main activities list
+          required: true
+        - label: Students cannot register for the removed activity
+          required: true
+        - label: Existing participant data is handled according to specified plan
+          required: true
+        - label: No broken links or references to the removed activity
+          required: true
+        - label: Database remains consistent after removal
+          required: true
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: Any other information relevant to this removal
+      placeholder: |
+        e.g.,
+        - Specific date for removal
+        - Related activities that might be affected
+        - Special considerations for certain students
+        - Future plans for similar activities
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Implementation Hints for Copilot
+
+        **Database Location**: Activity data is stored in `src/backend/database.py` in the `initial_activities` dictionary.
+
+        **Removal Process**:
+        1. Locate the activity in `initial_activities` dictionary
+        2. Remove the activity entry completely OR
+        3. Mark as inactive while preserving data (depending on requirements)
+        4. Handle participant data according to specified plan
+
+        **Participant Data Handling Options**:
+        - **Complete Removal**: Delete activity and all participant records
+        - **Transfer**: Move participants to another activity's participant list
+        - **Archive**: Keep data but mark activity as inactive/hidden
+        - **Preserve**: Remove activity but keep participant data for records
+
+        **Files to Update**:
+        - `src/backend/database.py`: Remove/modify activity data
+        - Verify no hardcoded references in frontend code
+        - Check that API endpoints handle missing activities gracefully
+
+        **Testing Checklist**:
+        - Verify activity no longer appears on main page
+        - Test that removed activity cannot be accessed directly
+        - Confirm participant data handled correctly
+        - Check for any errors or broken functionality
+        - Verify database consistency
+
+        **Safety Considerations**:
+        - Consider backing up participant data before removal
+        - Ensure removal is reversible if needed
+        - Test with a copy of data first if possible
+        - Verify no other activities reference the removed one
+
+        **Error Handling**:
+        - Handle cases where users try to access removed activity URLs
+        - Ensure graceful degradation if activity references exist elsewhere
+        - Provide appropriate error messages if needed
